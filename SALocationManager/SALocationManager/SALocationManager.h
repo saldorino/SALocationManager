@@ -79,6 +79,12 @@
  */
 @property (nonatomic) BOOL authorizeAlways;
 
+/**
+ *  Whether the app displays a message to the user when authorization to user's Location is denied or restricted or Location Services are disabled.
+    Default value is NO.
+ */
+@property (nonatomic) BOOL failsAuthorizationSilently;
+
 #pragma mark Request Blocks
 /**
  *  Invoked every time a new location is found.

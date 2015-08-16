@@ -64,12 +64,15 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     if (![CLLocationManager locationServicesEnabled])
     {
 #warning Internationalization Required
-        [[[UIAlertView alloc] initWithTitle:@""
-                                    message:@"Location services are disabled on your device. Please enable them through the Settings App"
-                                   delegate:nil
-                          cancelButtonTitle:@"Dismiss"
-                          otherButtonTitles:nil]
-         show];
+        if (!options.failsAuthorizationSilently)
+        {
+            [[[UIAlertView alloc] initWithTitle:@""
+                                        message:@"Location services are disabled on your device. Please enable them through the Settings App"
+                                       delegate:nil
+                              cancelButtonTitle:@"Dismiss"
+                              otherButtonTitles:nil]
+             show];
+        }
     }
     else
     {
@@ -198,7 +201,11 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted)
     {
         [self.runningRequestsOptions removeObject:options];
-        [self displayAuthorizationDeniedAlert];
+
+        if (!options.failsAuthorizationSilently)
+        {
+            [self displayAuthorizationDeniedAlert];
+        }
     }
 }
 
