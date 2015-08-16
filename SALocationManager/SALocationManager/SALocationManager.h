@@ -44,7 +44,11 @@
 
 
 #pragma mark -
+typedef void(^SALocationRequestSuccessBlock)(CLLocation *location);
+typedef void(^SALocationRequestFailureBlock)(NSError *error);
+
 @interface SALocationManagerRequestOptions : NSObject
+
 
 #pragma mark Public Properties
 /**
@@ -85,35 +89,66 @@
  */
 @property (nonatomic) BOOL failsAuthorizationSilently;
 
+
 #pragma mark Request Blocks
 /**
  *  Invoked every time a new location is found.
  */
-@property (nonatomic, copy) void(^onLocationUpdated)            (CLLocation *updatedLocation);
+@property (nonatomic, copy) SALocationRequestSuccessBlock onLocationUpdated;
 
 /**
- *  Invoked when a location that conforms to all the conditions required is found.
+ *  Invoked when a location that conforms to all the required conditions is found.
  */
-@property (nonatomic, copy) void(^onLocationRetrieved)          (CLLocation *mostAccurateLocationRetrieved);
+@property (nonatomic, copy) SALocationRequestSuccessBlock onLocationRetrieved;
 
 /**
  *  Invoked when location updates are stopped.
  */
-@property (nonatomic, copy) void(^onLocationUpdatesStopped)    (CLLocation *mostAccurateLocationRetrieved);
+@property (nonatomic, copy) SALocationRequestSuccessBlock onLocationUpdatesStopped;
 
 /**
  *  Invoked when location updates are paused.
  */
-@property (nonatomic, copy) void(^onLocationUpdatesPaused)      (CLLocation *lastKnownLocation);
+@property (nonatomic, copy) SALocationRequestSuccessBlock onLocationUpdatesPaused;
 
 /**
  * Invoked when location updates are resumed
  */
-@property (nonatomic, copy) void(^onLocationUpdatesResumed)     (CLLocation *lastKnownLocation);
+@property (nonatomic, copy) SALocationRequestSuccessBlock onLocationUpdatesResumed;
 
 /**
- *  Invoked when location updates fail.
+ *  Invoked when a location update fails.
  */
-@property (nonatomic, copy) void(^onLocationUpdateFailed)       (NSError *error);
+@property (nonatomic, copy) SALocationRequestFailureBlock onLocationUpdateFailed;
+
+
+#pragma mark Feedback Configuration
+/**
+ *  This selector can be used to set the 'Dismiss' button's title across all location request instances.
+ *
+ *  @param title The title to be used
+ */
++ (void)setDismissButtonTitle:(NSString *)title;
+
+/**
+ *  This selector can be used to set the 'Open Settings App' button's title across all location request instances.
+ *
+ *  @param title The title to be used
+ */
++ (void)setOpenSettingsButtonTitle:(NSString *)title;
+
+/**
+ *  This selector can be used to configure the message displayed to the user when the app has been denied user location access.
+ *
+ *  @param message The message to be displayed
+ */
++ (void)setAuthorizationDeniedErrorMessage:(NSString *)message;
+
+/**
+ *  This selector can be used to configure the message displayed to the user when their device has Location Services disabled.
+ *
+ *  @param message The message to be displayed
+ */
++ (void)setLocationServicesDisabledErrorMessage:(NSString *)message;
 
 @end

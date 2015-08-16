@@ -7,14 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9E2F45F21B812F1F00EAA573 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F45F11B812F1F00EAA573 /* main.m */; };
-		9E2F45F51B812F1F00EAA573 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F45F41B812F1F00EAA573 /* AppDelegate.m */; };
-		9E2F45F81B812F1F00EAA573 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F45F71B812F1F00EAA573 /* ViewController.m */; };
-		9E2F45FB1B812F1F00EAA573 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F45F91B812F1F00EAA573 /* Main.storyboard */; };
-		9E2F45FD1B812F1F00EAA573 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F45FC1B812F1F00EAA573 /* Images.xcassets */; };
-		9E2F46001B812F1F00EAA573 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F45FE1B812F1F00EAA573 /* LaunchScreen.xib */; };
 		9E2F460C1B812F1F00EAA573 /* SALocationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */; };
-		9EC6D9D01B8130E700AA5781 /* SALocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC6D9CE1B8130E700AA5781 /* SALocationManager.m */; };
+		9E8A23D91B813E3D00913E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23CD1B813E3D00913E4E /* AppDelegate.m */; };
+		9E8A23DA1B813E3D00913E4E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23CE1B813E3D00913E4E /* LaunchScreen.xib */; };
+		9E8A23DB1B813E3D00913E4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23D01B813E3D00913E4E /* Main.storyboard */; };
+		9E8A23DC1B813E3D00913E4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23D21B813E3D00913E4E /* Images.xcassets */; };
+		9E8A23DD1B813E3D00913E4E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23D31B813E3D00913E4E /* Info.plist */; };
+		9E8A23DE1B813E3D00913E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23D41B813E3D00913E4E /* main.m */; };
+		9E8A23E01B813E3D00913E4E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23D81B813E3D00913E4E /* ViewController.m */; };
+		9E8A23E41B813E4800913E4E /* SALocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23E31B813E4800913E4E /* SALocationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,20 +30,20 @@
 
 /* Begin PBXFileReference section */
 		9E2F45EC1B812F1F00EAA573 /* SALocationManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SALocationManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		9E2F45F01B812F1F00EAA573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9E2F45F11B812F1F00EAA573 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9E2F45F31B812F1F00EAA573 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		9E2F45F41B812F1F00EAA573 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9E2F45F61B812F1F00EAA573 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9E2F45F71B812F1F00EAA573 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		9E2F45FA1B812F1F00EAA573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		9E2F45FC1B812F1F00EAA573 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		9E2F45FF1B812F1F00EAA573 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		9E2F46051B812F1F00EAA573 /* SALocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SALocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2F460A1B812F1F00EAA573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SALocationManagerTests.m; sourceTree = "<group>"; };
-		9EC6D9CE1B8130E700AA5781 /* SALocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationManager.m; sourceTree = "<group>"; };
-		9EC6D9CF1B8130E700AA5781 /* SALocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationManager.h; sourceTree = "<group>"; };
+		9E8A23CC1B813E3D00913E4E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		9E8A23CD1B813E3D00913E4E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		9E8A23CF1B813E3D00913E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		9E8A23D11B813E3D00913E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9E8A23D21B813E3D00913E4E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		9E8A23D31B813E3D00913E4E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9E8A23D41B813E3D00913E4E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		9E8A23D71B813E3D00913E4E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		9E8A23D81B813E3D00913E4E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9E8A23E21B813E4800913E4E /* SALocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationManager.h; sourceTree = "<group>"; };
+		9E8A23E31B813E4800913E4E /* SALocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,8 +67,8 @@
 		9E2F45E31B812F1F00EAA573 = {
 			isa = PBXGroup;
 			children = (
-				9E2F45EE1B812F1F00EAA573 /* SALocationManager */,
-				9EC6D9CD1B8130BE00AA5781 /* Sample */,
+				9E8A23E11B813E4800913E4E /* SALocationManager */,
+				9E8A23CB1B813E3D00913E4E /* Sample */,
 				9E2F46081B812F1F00EAA573 /* SALocationManagerTests */,
 				9E2F45ED1B812F1F00EAA573 /* Products */,
 			);
@@ -80,24 +81,6 @@
 				9E2F46051B812F1F00EAA573 /* SALocationManagerTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		9E2F45EE1B812F1F00EAA573 /* SALocationManager */ = {
-			isa = PBXGroup;
-			children = (
-				9EC6D9CF1B8130E700AA5781 /* SALocationManager.h */,
-				9EC6D9CE1B8130E700AA5781 /* SALocationManager.m */,
-			);
-			path = SALocationManager;
-			sourceTree = "<group>";
-		};
-		9E2F45EF1B812F1F00EAA573 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				9E2F45F01B812F1F00EAA573 /* Info.plist */,
-				9E2F45F11B812F1F00EAA573 /* main.m */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		9E2F46081B812F1F00EAA573 /* SALocationManagerTests */ = {
@@ -117,19 +100,28 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9EC6D9CD1B8130BE00AA5781 /* Sample */ = {
+		9E8A23CB1B813E3D00913E4E /* Sample */ = {
 			isa = PBXGroup;
 			children = (
-				9E2F45F31B812F1F00EAA573 /* AppDelegate.h */,
-				9E2F45F41B812F1F00EAA573 /* AppDelegate.m */,
-				9E2F45F61B812F1F00EAA573 /* ViewController.h */,
-				9E2F45F71B812F1F00EAA573 /* ViewController.m */,
-				9E2F45F91B812F1F00EAA573 /* Main.storyboard */,
-				9E2F45FC1B812F1F00EAA573 /* Images.xcassets */,
-				9E2F45FE1B812F1F00EAA573 /* LaunchScreen.xib */,
-				9E2F45EF1B812F1F00EAA573 /* Supporting Files */,
+				9E8A23CC1B813E3D00913E4E /* AppDelegate.h */,
+				9E8A23CD1B813E3D00913E4E /* AppDelegate.m */,
+				9E8A23CE1B813E3D00913E4E /* LaunchScreen.xib */,
+				9E8A23D01B813E3D00913E4E /* Main.storyboard */,
+				9E8A23D21B813E3D00913E4E /* Images.xcassets */,
+				9E8A23D31B813E3D00913E4E /* Info.plist */,
+				9E8A23D41B813E3D00913E4E /* main.m */,
+				9E8A23D71B813E3D00913E4E /* ViewController.h */,
+				9E8A23D81B813E3D00913E4E /* ViewController.m */,
 			);
-			name = Sample;
+			path = Sample;
+			sourceTree = "<group>";
+		};
+		9E8A23E11B813E4800913E4E /* SALocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				9E8A23E21B813E4800913E4E /* SALocationManager.h */,
+				9E8A23E31B813E4800913E4E /* SALocationManager.m */,
+			);
 			path = SALocationManager;
 			sourceTree = "<group>";
 		};
@@ -213,9 +205,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E2F45FB1B812F1F00EAA573 /* Main.storyboard in Resources */,
-				9E2F46001B812F1F00EAA573 /* LaunchScreen.xib in Resources */,
-				9E2F45FD1B812F1F00EAA573 /* Images.xcassets in Resources */,
+				9E8A23DD1B813E3D00913E4E /* Info.plist in Resources */,
+				9E8A23DC1B813E3D00913E4E /* Images.xcassets in Resources */,
+				9E8A23DA1B813E3D00913E4E /* LaunchScreen.xib in Resources */,
+				9E8A23DB1B813E3D00913E4E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -233,10 +226,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9E2F45F81B812F1F00EAA573 /* ViewController.m in Sources */,
-				9E2F45F51B812F1F00EAA573 /* AppDelegate.m in Sources */,
-				9EC6D9D01B8130E700AA5781 /* SALocationManager.m in Sources */,
-				9E2F45F21B812F1F00EAA573 /* main.m in Sources */,
+				9E8A23DE1B813E3D00913E4E /* main.m in Sources */,
+				9E8A23E01B813E3D00913E4E /* ViewController.m in Sources */,
+				9E8A23D91B813E3D00913E4E /* AppDelegate.m in Sources */,
+				9E8A23E41B813E4800913E4E /* SALocationManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,20 +252,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		9E2F45F91B812F1F00EAA573 /* Main.storyboard */ = {
+		9E8A23CE1B813E3D00913E4E /* LaunchScreen.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				9E2F45FA1B812F1F00EAA573 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		9E2F45FE1B812F1F00EAA573 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				9E2F45FF1B812F1F00EAA573 /* Base */,
+				9E8A23CF1B813E3D00913E4E /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		9E8A23D01B813E3D00913E4E /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9E8A23D11B813E3D00913E4E /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -360,7 +353,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SALocationManager/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -370,7 +363,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				INFOPLIST_FILE = SALocationManager/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
