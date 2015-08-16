@@ -1,1 +1,17 @@
 # SALocationManager
+
+SALocationManager is a Singleton-based location manager aimed to make location updates plug and play.
+
+
+It currently supports:
+
+- Multiple simultaneous requests.
+- Location filtering by maximum age and horizontal accuracy.
+- Continuous updates or max retry count.
+
+
+Planned upgrades:
+- Significant location change updates.
+- Geografic and beacon monitoring.
+- iBeacon ranging.
+- Heading updates.
