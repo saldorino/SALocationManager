@@ -14,6 +14,7 @@
 		9E2F45FD1B812F1F00EAA573 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F45FC1B812F1F00EAA573 /* Images.xcassets */; };
 		9E2F46001B812F1F00EAA573 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2F45FE1B812F1F00EAA573 /* LaunchScreen.xib */; };
 		9E2F460C1B812F1F00EAA573 /* SALocationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */; };
+		9EC6D9D01B8130E700AA5781 /* SALocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC6D9CE1B8130E700AA5781 /* SALocationManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		9E2F46051B812F1F00EAA573 /* SALocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SALocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2F460A1B812F1F00EAA573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SALocationManagerTests.m; sourceTree = "<group>"; };
+		9EC6D9CE1B8130E700AA5781 /* SALocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationManager.m; sourceTree = "<group>"; };
+		9EC6D9CF1B8130E700AA5781 /* SALocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +67,7 @@
 			isa = PBXGroup;
 			children = (
 				9E2F45EE1B812F1F00EAA573 /* SALocationManager */,
+				9EC6D9CD1B8130BE00AA5781 /* Sample */,
 				9E2F46081B812F1F00EAA573 /* SALocationManagerTests */,
 				9E2F45ED1B812F1F00EAA573 /* Products */,
 			);
@@ -81,14 +85,8 @@
 		9E2F45EE1B812F1F00EAA573 /* SALocationManager */ = {
 			isa = PBXGroup;
 			children = (
-				9E2F45F31B812F1F00EAA573 /* AppDelegate.h */,
-				9E2F45F41B812F1F00EAA573 /* AppDelegate.m */,
-				9E2F45F61B812F1F00EAA573 /* ViewController.h */,
-				9E2F45F71B812F1F00EAA573 /* ViewController.m */,
-				9E2F45F91B812F1F00EAA573 /* Main.storyboard */,
-				9E2F45FC1B812F1F00EAA573 /* Images.xcassets */,
-				9E2F45FE1B812F1F00EAA573 /* LaunchScreen.xib */,
-				9E2F45EF1B812F1F00EAA573 /* Supporting Files */,
+				9EC6D9CF1B8130E700AA5781 /* SALocationManager.h */,
+				9EC6D9CE1B8130E700AA5781 /* SALocationManager.m */,
 			);
 			path = SALocationManager;
 			sourceTree = "<group>";
@@ -117,6 +115,22 @@
 				9E2F460A1B812F1F00EAA573 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9EC6D9CD1B8130BE00AA5781 /* Sample */ = {
+			isa = PBXGroup;
+			children = (
+				9E2F45F31B812F1F00EAA573 /* AppDelegate.h */,
+				9E2F45F41B812F1F00EAA573 /* AppDelegate.m */,
+				9E2F45F61B812F1F00EAA573 /* ViewController.h */,
+				9E2F45F71B812F1F00EAA573 /* ViewController.m */,
+				9E2F45F91B812F1F00EAA573 /* Main.storyboard */,
+				9E2F45FC1B812F1F00EAA573 /* Images.xcassets */,
+				9E2F45FE1B812F1F00EAA573 /* LaunchScreen.xib */,
+				9E2F45EF1B812F1F00EAA573 /* Supporting Files */,
+			);
+			name = Sample;
+			path = SALocationManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +235,7 @@
 			files = (
 				9E2F45F81B812F1F00EAA573 /* ViewController.m in Sources */,
 				9E2F45F51B812F1F00EAA573 /* AppDelegate.m in Sources */,
+				9EC6D9D01B8130E700AA5781 /* SALocationManager.m in Sources */,
 				9E2F45F21B812F1F00EAA573 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -414,6 +429,7 @@
 				9E2F46111B812F1F00EAA573 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		9E2F46121B812F1F00EAA573 /* Build configuration list for PBXNativeTarget "SALocationManagerTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +438,7 @@
 				9E2F46141B812F1F00EAA573 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
