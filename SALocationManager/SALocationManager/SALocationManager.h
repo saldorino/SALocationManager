@@ -21,7 +21,7 @@
  *
  *  @return An initialized instance of SALocationManager
  */
-+ (instancetype)sharedInstance;
++ (instancetype)defaultManager;
 
 #pragma mark Usage
 /**

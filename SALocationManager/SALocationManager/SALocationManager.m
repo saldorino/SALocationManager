@@ -41,7 +41,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark inits & dealloc
-+ (instancetype)sharedInstance
++ (instancetype)defaultManager
 {
     static id _instance = nil;
 
