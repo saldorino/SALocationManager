@@ -17,7 +17,7 @@
 
 #pragma mark Initialization
 /**
- *  Singleton Init
+ *  Singleton Initializer
  *
  *  @return An initialized instance of SALocationManager
  */
@@ -25,16 +25,16 @@
 
 #pragma mark Usage
 /**
- *  Starts updating location for the given options parameter
+ *  Starts updating location for a SALocationManagerRequestOptions instance
  *
- *  @param options SALocationManagerRequestOptions that configures the request and different callbacks
+ *  @param options The options object
  */
 - (void)startUpdatingLocationWithOptions:(SALocationManagerRequestOptions *)options;
 
 /**
- *  Cancels the location updates for the given options object only.
+ *  Cancels the location updates for the a SALocationManagerRequestOptions instance
  *
- *  @param options SALocationManagerRequestOptions used to start updating location.
+ *  @param options The options object
  */
 - (void)stopUpdatingLocationWithOptions:(SALocationManagerRequestOptions *)options;
 
@@ -58,12 +58,12 @@ typedef void(^SALocationRequestFailureBlock)(NSError *error);
 
 #pragma mark Request Configuration Properties
 /**
- *  This BOOL defines whether the location manager continues or stops updating location after a location with the desired accuracy has been found
+ *  Whether or not the location manager continues updating location after a location with that conforms with all the requirements has been found
  */
 @property (nonatomic) BOOL continuousUpdates;
 
 /**
- *  Desired horizontal accuracy for a location to be considered valid
+ *  Desired horizontal accuracy for a location to be considered valid.
  */
 @property (nonatomic) CGFloat desiredHorizontalAccuracy;
 
@@ -73,19 +73,18 @@ typedef void(^SALocationRequestFailureBlock)(NSError *error);
 @property (nonatomic) NSTimeInterval maxAge;
 
 /**
- *  Maximum amount of tries.
+ *  Maximum amount of tries before stopping.
  */
 @property (nonatomic) NSUInteger retryCount;
 
 /**
- *  Whether the app authorizes to be updating location at all times or only when used.
-    See iOS's documentation for NSLocationAlwaysUsageDescription, NSLocationWhenInUseUsageDescription for more info
+ *  Whether the app should authorize location access at all times or only when used.
+    See Objective-C's NSLocationAlwaysUsageDescription and NSLocationWhenInUseUsageDescription documentation for more info.
  */
 @property (nonatomic) BOOL authorizeAlways;
 
 /**
- *  Whether the app displays a message to the user when authorization to user's Location is denied or restricted or Location Services are disabled.
-    Default value is NO.
+ *  Whether the app displays a message to the user when authorization to user's Location is denied or if Location Services are disabled.
  */
 @property (nonatomic) BOOL failsAuthorizationSilently;
 
