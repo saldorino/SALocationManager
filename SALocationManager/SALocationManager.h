@@ -29,18 +29,18 @@
 
 #pragma mark Location Update Requests
 /**
- *  Starts updating location for a SALocationManagerRequestOptions instance
+ *  Use this selector to start updating location
  *
- *  @param options The options object
+ *  @param listener The listener that whose blocks will be invoked.
  */
-- (void)startUpdatingLocationWithOptions:(SALocationUpdatesListener *)options;
+- (void)startUpdatingLocationWithListener:(SALocationUpdatesListener *)listener;
 
 /**
- *  Cancels the location updates for the a SALocationManagerRequestOptions instance
+ *  Use this selector to stop updating location.
  *
- *  @param options The options object
+ *  @param listener A listener that was previously used as a parameter on startUpdatingLocationWithListener:
  */
-- (void)stopUpdatingLocationWithOptions:(SALocationUpdatesListener *)options;
+- (void)stopUpdatingLocationWithListener:(SALocationUpdatesListener *)listener;
 
 @end
 
@@ -52,8 +52,11 @@
 @interface SALocationManager (User_Feedback)
 
 @property (nonatomic, copy) NSString *dismissButtonTitle;
+
 @property (nonatomic, copy) NSString *openSettingsButtonTitle;
+
 @property (nonatomic, copy) NSString *locationAuthorizationDeniedErrorMessage;
+
 @property (nonatomic, copy) NSString *locationServicesDisabledErrorMessage;
 
 @end

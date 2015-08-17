@@ -16,7 +16,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 @property (nonatomic) CLLocation        *lastKnownLocation;
 @property (nonatomic) CLLocationManager *locationManager;
-@property (nonatomic) NSMutableArray    *runningRequestsOptions;
+@property (nonatomic) NSMutableArray    *locationUpdatesListeners;
 
 @end
 
@@ -41,7 +41,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 {
     if (self = [super init])
     {
-        self.runningRequestsOptions = [NSMutableArray new];
+        self.locationUpdatesListeners = [NSMutableArray new];
         self.locationManager        = self.locationManager;
     }
 
@@ -51,7 +51,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Request Starting & Stopping
-- (void)startUpdatingLocationWithOptions:(SALocationUpdatesListener *)options
+- (void)startUpdatingLocationWithListener:(SALocationUpdatesListener *)options
 {
 #if DEBUG
     [self verifyLocationRequestsSetupWithOptions:options];
@@ -79,7 +79,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
         }
         else
         {
-            [self.runningRequestsOptions addObject:options];
+            [self.locationUpdatesListeners addObject:options];
 
             if ([self requiresAuthorizationStatusChangeWithOptions:options])
             {
@@ -93,11 +93,11 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     }
 }
 
-- (void)stopUpdatingLocationWithOptions:(SALocationUpdatesListener *)options
+- (void)stopUpdatingLocationWithListener:(SALocationUpdatesListener *)options
 {
-    [self.runningRequestsOptions removeObject:options];
+    [self.locationUpdatesListeners removeObject:options];
 
-    if (!self.runningRequestsOptions.count)
+    if (!self.locationUpdatesListeners.count)
     {
         [self.locationManager stopUpdatingLocation];
     }
@@ -208,7 +208,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     // The app has been denied the location services in the past. Let the user know with a custom alert that opens the settings App (if possible)
     else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted)
     {
-        [self.runningRequestsOptions removeObject:options];
+        [self.locationUpdatesListeners removeObject:options];
 
         if (!options.failsAuthorizationSilently)
         {
@@ -260,8 +260,41 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     CLLocation *location    = locations.firstObject;
     self.lastKnownLocation  = location;
 
-    NSArray *requestsOptions = self.runningRequestsOptions.copy;
-    for (SALocationUpdatesListener *options in requestsOptions)
+    [self notifyLocationsUpdated:locations];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    [self notifyLocationManagerError:error];
+}
+
+- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager
+{
+    [self notifyLocationUpdatesPaused];
+}
+
+- (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
+{
+    [self notifyLocationUpdatesResumed];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways)
+    {
+        [self.locationManager startUpdatingLocation];
+    }
+}
+
+
+
+
+#pragma mark Location Updates Listeners Selectors
+- (void)notifyLocationsUpdated:(NSArray *)locations
+{
+    CLLocation *location = locations.firstObject;
+
+    for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
     {
         NSTimeInterval locationAge = [[NSDate date] timeIntervalSinceDate:location.timestamp];
 
@@ -270,13 +303,14 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
             if (!options.bestLocationSoFar || location.horizontalAccuracy <= options.bestLocationSoFar.horizontalAccuracy)
             {
                 options.bestLocationSoFar = location;
+
                 options.onLocationUpdated(options.bestLocationSoFar);
 
                 if (location.horizontalAccuracy < options.desiredHorizontalAccuracy)
                 {
                     if (!options.continuousUpdates)
                     {
-                        [self.runningRequestsOptions removeObject:options];
+                        [self.locationUpdatesListeners removeObject:options];
                     }
 
                     options.onLocationRetrieved(options.bestLocationSoFar);
@@ -286,49 +320,50 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
         if (--options.retryCount <= 0 && !options.continuousUpdates)
         {
-            [self.runningRequestsOptions removeObject:options];
+            [self.locationUpdatesListeners removeObject:options];
 
             options.onLocationRetrieved(options.bestLocationSoFar);
         }
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+- (void)notifyLocationsUpdateError:(NSError *)error
 {
-    NSArray *requestsOptions = self.runningRequestsOptions.copy;
-
-    for (SALocationUpdatesListener *options in requestsOptions)
+    if (self.locationUpdatesListeners)
     {
-        options.onLocationUpdateFailed(error);
+        for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
+        {
+            options.onLocationUpdateFailed(error);
 
-        [self.runningRequestsOptions removeObject:options];
+            [self.locationUpdatesListeners removeObject:options];
+        }
+
+        [self.locationManager stopUpdatingLocation];
     }
-
-    [self.locationManager stopUpdatingLocation];
 }
 
-- (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager
+- (void)notifyLocationUpdatesPaused
 {
-    for (SALocationUpdatesListener *options in self.runningRequestsOptions)
+    for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
     {
         options.onLocationUpdatesPaused(options.bestLocationSoFar);
     }
 }
 
-- (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
+- (void)notifyLocationUpdatesResumed
 {
-    for (SALocationUpdatesListener *options in self.runningRequestsOptions)
+    for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
     {
         options.onLocationUpdatesResumed(options.bestLocationSoFar);
     }
 }
 
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+
+
+#pragma mark Errors
+- (void)notifyLocationManagerError:(NSError *)error
 {
-    if (status == kCLAuthorizationStatusAuthorizedWhenInUse || status == kCLAuthorizationStatusAuthorizedAlways)
-    {
-        [self.locationManager startUpdatingLocation];
-    }
+    [self notifyLocationsUpdateError:error];
 }
 
 
@@ -359,8 +394,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 
-
-#pragma mark - 
+#pragma mark -
 @implementation SALocationManager (User_Feedback)
 
 
@@ -377,7 +411,7 @@ static void * ivar_locationServicesDisabledErrorMessage    = @"ivar_locationServ
     {
         title = @"Dismiss";
 
-         self.dismissButtonTitle = title;
+        self.dismissButtonTitle = title;
     }
 
     return title;
@@ -436,10 +470,10 @@ static void * ivar_locationServicesDisabledErrorMessage    = @"ivar_locationServ
     if (!message.length)
     {
         message = @"Location services are disabled on your device. Please enable them through the Settings App";
-
+        
         self.locationServicesDisabledErrorMessage = message;
     }
-
+    
     return message;
 }
 
