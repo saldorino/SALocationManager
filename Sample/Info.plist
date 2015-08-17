@@ -37,6 +37,10 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>The app always wants your location to run the samples</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>The app wants your location to run the samples only when you use it</string>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

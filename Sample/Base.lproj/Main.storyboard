@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6751" systemVersion="13F1066" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="8J9-OQ-4Sd">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -66,14 +67,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Env-Ei-WZU">
-                                <rect key="frame" x="16" y="72" width="46" height="30"/>
-                                <state key="normal" title="Button">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Env-Ei-WZU">
+                                <rect key="frame" x="16" y="72" width="170" height="30"/>
+                                <state key="normal" title="Add Continuous Listener">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="addContinuousLocationUpdatesListener:" destination="qEC-dJ-kuA" eventType="touchUpInside" id="XMe-fs-p73"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sfA-6u-Zw5" userLabel="Remove All Continuous Listeners">
+                                <rect key="frame" x="16" y="110" width="227" height="30"/>
+                                <state key="normal" title="Remove All Continuous Listeners">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeAllContinuousLocationUpdatesListeners:" destination="qEC-dJ-kuA" eventType="touchUpInside" id="LWf-1B-Fa0"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JVd-ic-jgC">
+                                <rect key="frame" x="16" y="216" width="231" height="30"/>
+                                <state key="normal" title="Remove All Retry Count Listeners">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="removeAllNonContinuousLocationUpdatesListeners:" destination="qEC-dJ-kuA" eventType="touchUpInside" id="L3q-r6-kfh"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Tq-fw-3Ja">
+                                <rect key="frame" x="16" y="178" width="195" height="30"/>
+                                <state key="normal" title="Add Listener Retry Count 10">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addNonContinuousLocationUpdatesListener:" destination="qEC-dJ-kuA" eventType="touchUpInside" id="RlQ-Jm-Ewg"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JVd-ic-jgC" firstAttribute="top" secondItem="6Tq-fw-3Ja" secondAttribute="bottom" constant="8" id="2nm-As-xdz"/>
+                            <constraint firstItem="sfA-6u-Zw5" firstAttribute="top" secondItem="Env-Ei-WZU" secondAttribute="bottom" constant="8" id="Nel-ap-fgm"/>
+                            <constraint firstItem="Env-Ei-WZU" firstAttribute="leading" secondItem="N8w-2w-Vhj" secondAttribute="leadingMargin" id="Nns-Zm-32J"/>
+                            <constraint firstItem="6Tq-fw-3Ja" firstAttribute="leading" secondItem="sfA-6u-Zw5" secondAttribute="leading" id="PQW-JT-Jj9"/>
+                            <constraint firstItem="JVd-ic-jgC" firstAttribute="leading" secondItem="6Tq-fw-3Ja" secondAttribute="leading" id="Ry2-pi-rpK"/>
+                            <constraint firstItem="Env-Ei-WZU" firstAttribute="leading" secondItem="sfA-6u-Zw5" secondAttribute="leading" id="bcA-DR-nTf"/>
+                            <constraint firstItem="Env-Ei-WZU" firstAttribute="top" secondItem="ML2-gT-Yek" secondAttribute="bottom" constant="8" id="cdy-qA-vQ8"/>
+                            <constraint firstItem="6Tq-fw-3Ja" firstAttribute="top" secondItem="sfA-6u-Zw5" secondAttribute="bottom" constant="38" id="xOM-dt-nbe"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gAh-JV-TeD" userLabel="First Responder" sceneMemberID="firstResponder"/>
