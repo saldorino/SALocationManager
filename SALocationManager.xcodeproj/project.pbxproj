@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E2B1EDD1B81974E001C70C2 /* SALocationUpdatesListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B1EDC1B81974E001C70C2 /* SALocationUpdatesListener.m */; };
 		9E2F460C1B812F1F00EAA573 /* SALocationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */; };
-		9E792E651B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E792E621B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.m */; };
-		9E792E661B8153C4007681E2 /* SALocationUpdateRequestOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E792E641B8153C4007681E2 /* SALocationUpdateRequestOptions.m */; };
 		9E8A23D91B813E3D00913E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23CD1B813E3D00913E4E /* AppDelegate.m */; };
 		9E8A23DA1B813E3D00913E4E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23CE1B813E3D00913E4E /* LaunchScreen.xib */; };
 		9E8A23DB1B813E3D00913E4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23D01B813E3D00913E4E /* Main.storyboard */; };
@@ -31,14 +30,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		9E2B1EDB1B81974E001C70C2 /* SALocationUpdatesListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationUpdatesListener.h; sourceTree = "<group>"; };
+		9E2B1EDC1B81974E001C70C2 /* SALocationUpdatesListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationUpdatesListener.m; sourceTree = "<group>"; };
 		9E2F45EC1B812F1F00EAA573 /* SALocationManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SALocationManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2F46051B812F1F00EAA573 /* SALocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SALocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2F460A1B812F1F00EAA573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SALocationManagerTests.m; sourceTree = "<group>"; };
-		9E792E611B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SALocationUpdateRequestOptions+Feedback.h"; sourceTree = "<group>"; };
-		9E792E621B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SALocationUpdateRequestOptions+Feedback.m"; sourceTree = "<group>"; };
-		9E792E631B8153C4007681E2 /* SALocationUpdateRequestOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationUpdateRequestOptions.h; sourceTree = "<group>"; };
-		9E792E641B8153C4007681E2 /* SALocationUpdateRequestOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationUpdateRequestOptions.m; sourceTree = "<group>"; };
 		9E8A23CC1B813E3D00913E4E /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9E8A23CD1B813E3D00913E4E /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		9E8A23CF1B813E3D00913E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -70,6 +67,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E2B1ED91B81974E001C70C2 /* Listeners */ = {
+			isa = PBXGroup;
+			children = (
+				9E2B1EDA1B81974E001C70C2 /* Location Updates */,
+			);
+			path = Listeners;
+			sourceTree = "<group>";
+		};
+		9E2B1EDA1B81974E001C70C2 /* Location Updates */ = {
+			isa = PBXGroup;
+			children = (
+				9E2B1EDB1B81974E001C70C2 /* SALocationUpdatesListener.h */,
+				9E2B1EDC1B81974E001C70C2 /* SALocationUpdatesListener.m */,
+			);
+			path = "Location Updates";
+			sourceTree = "<group>";
+		};
 		9E2F45E31B812F1F00EAA573 = {
 			isa = PBXGroup;
 			children = (
@@ -106,25 +120,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		9E792E531B8150EE007681E2 /* Requests */ = {
-			isa = PBXGroup;
-			children = (
-				9E792E601B8153C4007681E2 /* Location Updates */,
-			);
-			path = Requests;
-			sourceTree = "<group>";
-		};
-		9E792E601B8153C4007681E2 /* Location Updates */ = {
-			isa = PBXGroup;
-			children = (
-				9E792E611B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.h */,
-				9E792E621B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.m */,
-				9E792E631B8153C4007681E2 /* SALocationUpdateRequestOptions.h */,
-				9E792E641B8153C4007681E2 /* SALocationUpdateRequestOptions.m */,
-			);
-			path = "Location Updates";
-			sourceTree = "<group>";
-		};
 		9E8A23CB1B813E3D00913E4E /* Sample */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,7 +141,7 @@
 			children = (
 				9E8A23E21B813E4800913E4E /* SALocationManager.h */,
 				9E8A23E31B813E4800913E4E /* SALocationManager.m */,
-				9E792E531B8150EE007681E2 /* Requests */,
+				9E2B1ED91B81974E001C70C2 /* Listeners */,
 			);
 			path = SALocationManager;
 			sourceTree = "<group>";
@@ -253,8 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9E8A23DE1B813E3D00913E4E /* main.m in Sources */,
-				9E792E651B8153C4007681E2 /* SALocationUpdateRequestOptions+Feedback.m in Sources */,
-				9E792E661B8153C4007681E2 /* SALocationUpdateRequestOptions.m in Sources */,
+				9E2B1EDD1B81974E001C70C2 /* SALocationUpdatesListener.m in Sources */,
 				9E8A23E01B813E3D00913E4E /* ViewController.m in Sources */,
 				9E8A23D91B813E3D00913E4E /* AppDelegate.m in Sources */,
 				9E8A23E41B813E4800913E4E /* SALocationManager.m in Sources */,

@@ -11,10 +11,10 @@
 #import <UIKit/UIKit.h>
 
 #pragma mark -
-typedef void(^SALocationUpdateRequestSuccessBlock)(CLLocation *location);
-typedef void(^SALocationUpdateRequestFailureBlock)(NSError *error);
+typedef void(^SALocationUpdatesListenerSuccessBlock)(CLLocation *location);
+typedef void(^SALocationUpdatesListenerFailureBlock)(NSError *error);
 
-@interface SALocationUpdateRequestOptions : NSObject
+@interface SALocationUpdatesListener : NSObject
 
 
 #pragma mark Public Properties
@@ -60,31 +60,31 @@ typedef void(^SALocationUpdateRequestFailureBlock)(NSError *error);
 /**
  *  Invoked every time a new location is found.
  */
-@property (nonatomic, copy) SALocationUpdateRequestSuccessBlock onLocationUpdated;
+@property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdated;
 
 /**
  *  Invoked when a location that conforms to all the required conditions is found.
  */
-@property (nonatomic, copy) SALocationUpdateRequestSuccessBlock onLocationRetrieved;
+@property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationRetrieved;
 
 /**
  *  Invoked when location updates are stopped.
  */
-@property (nonatomic, copy) SALocationUpdateRequestSuccessBlock onLocationUpdatesStopped;
+@property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdatesStopped;
 
 /**
  *  Invoked when location updates are paused.
  */
-@property (nonatomic, copy) SALocationUpdateRequestSuccessBlock onLocationUpdatesPaused;
+@property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdatesPaused;
 
 /**
  * Invoked when location updates are resumed
  */
-@property (nonatomic, copy) SALocationUpdateRequestSuccessBlock onLocationUpdatesResumed;
+@property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdatesResumed;
 
 /**
  *  Invoked when a location update fails.
  */
-@property (nonatomic, copy) SALocationUpdateRequestFailureBlock onLocationUpdateFailed;
+@property (nonatomic, copy) SALocationUpdatesListenerFailureBlock onLocationUpdateFailed;
 
 @end

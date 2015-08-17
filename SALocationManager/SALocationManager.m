@@ -7,12 +7,11 @@
 //
 
 #import "SALocationManager.h"
+#import <objc/runtime.h>
 
 static NSString * const kAuthorizeAlwaysDescriptionKey    = @"NSLocationAlwaysUsageDescription";
 static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUseUsageDescription";
 
-
-#pragma mark -
 @interface SALocationManager () <CLLocationManagerDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) CLLocation        *lastKnownLocation;
@@ -20,6 +19,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 @property (nonatomic) NSMutableArray    *runningRequestsOptions;
 
 @end
+
 
 @implementation SALocationManager
 
@@ -51,7 +51,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Request Starting & Stopping
-- (void)startUpdatingLocationWithOptions:(SALocationUpdateRequestOptions *)options
+- (void)startUpdatingLocationWithOptions:(SALocationUpdatesListener *)options
 {
 #if DEBUG
     [self verifyLocationRequestsSetupWithOptions:options];
@@ -62,9 +62,9 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
         if (!options.failsAuthorizationSilently)
         {
             [[[UIAlertView alloc] initWithTitle:@""
-                                        message:[SALocationUpdateRequestOptions locationServicesDisabledErrorMessage]
+                                        message:self.locationServicesDisabledErrorMessage
                                        delegate:nil
-                              cancelButtonTitle:[SALocationUpdateRequestOptions dismissButtonTitle]
+                              cancelButtonTitle:self.dismissButtonTitle
                               otherButtonTitles:nil]
              show];
         }
@@ -93,7 +93,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     }
 }
 
-- (void)stopUpdatingLocationWithOptions:(SALocationUpdateRequestOptions *)options
+- (void)stopUpdatingLocationWithOptions:(SALocationUpdatesListener *)options
 {
     [self.runningRequestsOptions removeObject:options];
 
@@ -121,7 +121,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Private
-- (BOOL)shouldUseLastKnownLocationWithOptions:(SALocationUpdateRequestOptions *)options
+- (BOOL)shouldUseLastKnownLocationWithOptions:(SALocationUpdatesListener *)options
 {
     CLLocation *loc         = self.lastKnownLocation;
     NSTimeInterval locAge   = [[NSDate date] timeIntervalSinceDate:self.lastKnownLocation.timestamp];
@@ -162,7 +162,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Authorization Status
-- (BOOL)requiresAuthorizationStatusChangeWithOptions:(SALocationUpdateRequestOptions *)options
+- (BOOL)requiresAuthorizationStatusChangeWithOptions:(SALocationUpdatesListener *)options
 {
     BOOL result;
     CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
@@ -186,7 +186,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     return result;
 }
 
-- (void)displayAuthorizationAlertWithOptions:(SALocationUpdateRequestOptions *)options
+- (void)displayAuthorizationAlertWithOptions:(SALocationUpdatesListener *)options
 {
     CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
 
@@ -220,16 +220,16 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 - (void)displayAuthorizationDeniedAlert
 {
     UIAlertView *a = [[UIAlertView alloc] initWithTitle:@""
-                                                message:[SALocationUpdateRequestOptions locationAuthorizationDeniedErrorMessage]
+                                                message:self.locationAuthorizationDeniedErrorMessage
                                                delegate:nil
-                                      cancelButtonTitle:[SALocationUpdateRequestOptions dismissButtonTitle]
+                                      cancelButtonTitle:self.dismissButtonTitle
                                       otherButtonTitles:nil];
 
     if (&UIApplicationOpenSettingsURLString != NULL && [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]])
     {
         a.delegate = self;
 
-        [a addButtonWithTitle:[SALocationUpdateRequestOptions openSettingsButtonTitle]];
+        [a addButtonWithTitle:self.openSettingsButtonTitle];
     }
 
     [a show];
@@ -261,7 +261,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     self.lastKnownLocation  = location;
 
     NSArray *requestsOptions = self.runningRequestsOptions.copy;
-    for (SALocationUpdateRequestOptions *options in requestsOptions)
+    for (SALocationUpdatesListener *options in requestsOptions)
     {
         NSTimeInterval locationAge = [[NSDate date] timeIntervalSinceDate:location.timestamp];
 
@@ -297,7 +297,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 {
     NSArray *requestsOptions = self.runningRequestsOptions.copy;
 
-    for (SALocationUpdateRequestOptions *options in requestsOptions)
+    for (SALocationUpdatesListener *options in requestsOptions)
     {
         options.onLocationUpdateFailed(error);
 
@@ -309,7 +309,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager
 {
-    for (SALocationUpdateRequestOptions *options in self.runningRequestsOptions)
+    for (SALocationUpdatesListener *options in self.runningRequestsOptions)
     {
         options.onLocationUpdatesPaused(options.bestLocationSoFar);
     }
@@ -317,7 +317,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
 {
-    for (SALocationUpdateRequestOptions *options in self.runningRequestsOptions)
+    for (SALocationUpdatesListener *options in self.runningRequestsOptions)
     {
         options.onLocationUpdatesResumed(options.bestLocationSoFar);
     }
@@ -334,7 +334,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark DEBUG
-- (void)verifyLocationRequestsSetupWithOptions:(SALocationUpdateRequestOptions *)options
+- (void)verifyLocationRequestsSetupWithOptions:(SALocationUpdatesListener *)options
 {
 #if DEBUG
     NSBundle *b               = [NSBundle mainBundle];
@@ -350,6 +350,102 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
         NSAssert(authDescription.length, @"Info.plist is missing the required key to allow location authorization while the app is active.");
     }
 #endif
+}
+
+
+@end
+
+
+
+
+
+
+#pragma mark - 
+@implementation SALocationManager (User_Feedback)
+
+
+static void * ivar_dismissButtonTitle                      = @"ivar_dismissButtonTitle";
+static void * ivar_openSettingsButtonTitle                 = @"ivar_openSettingsButtonTitle";
+static void * ivar_locationAuthorizationDeniedErrorMessage = @"ivar_locationAuthorizationDeniedErrorMessage";
+static void * ivar_locationServicesDisabledErrorMessage    = @"ivar_locationServicesDisabledErrorMessage";
+
+- (NSString *)dismissButtonTitle
+{
+    NSString *title = objc_getAssociatedObject(self, ivar_dismissButtonTitle);
+
+    if (!title.length)
+    {
+        title = @"Dismiss";
+
+         self.dismissButtonTitle = title;
+    }
+
+    return title;
+}
+
+- (void)setDismissButtonTitle:(NSString *)title
+{
+    objc_setAssociatedObject(self, ivar_dismissButtonTitle, title, OBJC_ASSOCIATION_COPY);
+}
+
+- (NSString *)openSettingsButtonTitle
+{
+    NSString *title = objc_getAssociatedObject(self, ivar_openSettingsButtonTitle);
+
+    if (!title.length)
+    {
+        title = @"Open Settings";
+
+        self.openSettingsButtonTitle = title;
+    }
+
+    return title;
+}
+
+- (void)setOpenSettingsButtonTitle:(NSString *)title
+{
+    objc_setAssociatedObject(self, ivar_dismissButtonTitle, title, OBJC_ASSOCIATION_COPY);
+}
+
+- (NSString *)locationAuthorizationDeniedErrorMessage
+{
+    NSString *message = objc_getAssociatedObject(self, ivar_locationAuthorizationDeniedErrorMessage);
+
+    if (!message.length)
+    {
+        NSString *appName = [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleNameKey];
+        message           = [NSString stringWithFormat:@"'%@' is not authorized to access your location. "
+                             "Please authorize it through your device's Settings App",
+                             appName];
+
+        self.locationAuthorizationDeniedErrorMessage = message;
+    }
+
+    return message;
+}
+
+- (void)setLocationAuthorizationDeniedErrorMessage:(NSString *)message
+{
+    objc_setAssociatedObject(self, ivar_locationAuthorizationDeniedErrorMessage, message, OBJC_ASSOCIATION_COPY);
+}
+
+- (NSString *)locationServicesDisabledErrorMessage
+{
+    NSString *message = objc_getAssociatedObject(self, ivar_locationAuthorizationDeniedErrorMessage);
+
+    if (!message.length)
+    {
+        message = @"Location services are disabled on your device. Please enable them through the Settings App";
+
+        self.locationServicesDisabledErrorMessage = message;
+    }
+
+    return message;
+}
+
+- (void)setLocationServicesDisabledErrorMessage:(NSString *)message
+{
+    objc_setAssociatedObject(self, ivar_locationServicesDisabledErrorMessage, message, OBJC_ASSOCIATION_COPY);
 }
 
 

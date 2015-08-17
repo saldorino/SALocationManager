@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 Sebastian Aldorino. All rights reserved.
 //
 
-#import "SALocationUpdateRequestOptions.h"
+#import "SALocationUpdatesListener.h"
 
 #pragma mark -
-@implementation SALocationUpdateRequestOptions
+@implementation SALocationUpdatesListener
 
 
 #pragma mark inits & dealloc

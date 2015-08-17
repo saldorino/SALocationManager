@@ -9,10 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 #import <UIKit/UIKit.h>
-#import "SALocationUpdateRequestOptions.h"
-#import "SALocationUpdateRequestOptions+Feedback.h"
+#import "SALocationUpdatesListener.h"
 
-#pragma mark -
 @interface SALocationManager : NSObject
 
 /**
@@ -35,14 +33,27 @@
  *
  *  @param options The options object
  */
-- (void)startUpdatingLocationWithOptions:(SALocationUpdateRequestOptions *)options;
+- (void)startUpdatingLocationWithOptions:(SALocationUpdatesListener *)options;
 
 /**
  *  Cancels the location updates for the a SALocationManagerRequestOptions instance
  *
  *  @param options The options object
  */
-- (void)stopUpdatingLocationWithOptions:(SALocationUpdateRequestOptions *)options;
+- (void)stopUpdatingLocationWithOptions:(SALocationUpdatesListener *)options;
 
 @end
 
+
+
+
+
+#pragma mark -
+@interface SALocationManager (User_Feedback)
+
+@property (nonatomic, copy) NSString *dismissButtonTitle;
+@property (nonatomic, copy) NSString *openSettingsButtonTitle;
+@property (nonatomic, copy) NSString *locationAuthorizationDeniedErrorMessage;
+@property (nonatomic, copy) NSString *locationServicesDisabledErrorMessage;
+
+@end
