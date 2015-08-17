@@ -51,15 +51,15 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Request Starting & Stopping
-- (void)startUpdatingLocationWithListener:(SALocationUpdatesListener *)options
+- (void)startUpdatingLocationWithListener:(SALocationUpdatesListener *)listener
 {
 #if DEBUG
-    [self verifyLocationRequestsSetupWithOptions:options];
+    [self verifyLocationRequestsSetupWithListener:listener];
 #endif
 
     if (![CLLocationManager locationServicesEnabled])
     {
-        if (!options.failsAuthorizationSilently)
+        if (!listener.failsAuthorizationSilently)
         {
             [[[UIAlertView alloc] initWithTitle:@""
                                         message:self.locationServicesDisabledErrorMessage
@@ -71,19 +71,21 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     }
     else
     {
-        if ([self shouldUseLastKnownLocationWithOptions:options])
+        if ([self shouldUseLastKnownLocationWithListener:listener])
         {
-            options.bestLocationSoFar = self.lastKnownLocation;
+            listener.bestLocationSoFar = self.lastKnownLocation;
 
-            options.onLocationRetrieved(self.lastKnownLocation);
+            listener.onLocationRetrieved(self.lastKnownLocation);
+
+            listener.onLocationUpdatesStopped(self.lastKnownLocation);
         }
         else
         {
-            [self.locationUpdatesListeners addObject:options];
+            [self.locationUpdatesListeners addObject:listener];
 
-            if ([self requiresAuthorizationStatusChangeWithOptions:options])
+            if ([self requiresAuthorizationStatusChangeWithListener:listener])
             {
-                [self displayAuthorizationAlertWithOptions:options];
+                [self displayAuthorizationAlertWithListener:listener];
             }
             else
             {
@@ -93,16 +95,16 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     }
 }
 
-- (void)stopUpdatingLocationWithListener:(SALocationUpdatesListener *)options
+- (void)stopUpdatingLocationWithListener:(SALocationUpdatesListener *)listener
 {
-    [self.locationUpdatesListeners removeObject:options];
+    [self.locationUpdatesListeners removeObject:listener];
 
     if (!self.locationUpdatesListeners.count)
     {
         [self.locationManager stopUpdatingLocation];
     }
 
-    options.onLocationUpdatesStopped(options.bestLocationSoFar);
+    listener.onLocationUpdatesStopped(listener.bestLocationSoFar);
 }
 
 
@@ -121,12 +123,12 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Private
-- (BOOL)shouldUseLastKnownLocationWithOptions:(SALocationUpdatesListener *)options
+- (BOOL)shouldUseLastKnownLocationWithListener:(SALocationUpdatesListener *)listener
 {
-    CLLocation *loc         = self.lastKnownLocation;
-    NSTimeInterval locAge   = [[NSDate date] timeIntervalSinceDate:self.lastKnownLocation.timestamp];
+    CLLocation *location  = self.lastKnownLocation;
+    NSTimeInterval locAge = [[NSDate date] timeIntervalSinceDate:self.lastKnownLocation.timestamp];
 
-    return loc && loc.horizontalAccuracy <= options.desiredHorizontalAccuracy && locAge <= options.maxAge;
+    return !listener.continuousUpdates && location && location.horizontalAccuracy <= listener.desiredHorizontalAccuracy && locAge <= listener.maxAge;
 }
 
 
@@ -162,7 +164,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Authorization Status
-- (BOOL)requiresAuthorizationStatusChangeWithOptions:(SALocationUpdatesListener *)options
+- (BOOL)requiresAuthorizationStatusChangeWithListener:(SALocationUpdatesListener *)listener
 {
     BOOL result;
     CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
@@ -173,7 +175,7 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
             break;
 
         case kCLAuthorizationStatusAuthorizedWhenInUse:
-            result = options.authorizeAlways ? YES : NO;
+            result = listener.authorizeAlways ? YES : NO;
             break;
 
         case kCLAuthorizationStatusNotDetermined:
@@ -186,14 +188,14 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     return result;
 }
 
-- (void)displayAuthorizationAlertWithOptions:(SALocationUpdatesListener *)options
+- (void)displayAuthorizationAlertWithListener:(SALocationUpdatesListener *)listener
 {
     CLAuthorizationStatus authStatus = [CLLocationManager authorizationStatus];
 
     // Display iOS's auth alert
     if (authStatus == kCLAuthorizationStatusNotDetermined)
     {
-        SEL authSEL = options.authorizeAlways ? @selector(requestAlwaysAuthorization) : @selector(requestWhenInUseAuthorization);
+        SEL authSEL = listener.authorizeAlways ? @selector(requestAlwaysAuthorization) : @selector(requestWhenInUseAuthorization);
         if ([self.locationManager respondsToSelector:authSEL])
         {
             // Invoke the selector ignoring ARC-Related warning because we know it doesn't apply here.
@@ -208,9 +210,9 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
     // The app has been denied the location services in the past. Let the user know with a custom alert that opens the settings App (if possible)
     else if (authStatus == kCLAuthorizationStatusDenied || authStatus == kCLAuthorizationStatusRestricted)
     {
-        [self.locationUpdatesListeners removeObject:options];
+        [self.locationUpdatesListeners removeObject:listener];
 
-        if (!options.failsAuthorizationSilently)
+        if (!listener.failsAuthorizationSilently)
         {
             [self displayAuthorizationDeniedAlert];
         }
@@ -257,25 +259,24 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 #pragma mark CLLocationManagerDelegate
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    CLLocation *location    = locations.firstObject;
-    self.lastKnownLocation  = location;
+    self.lastKnownLocation  = locations.firstObject;
 
-    [self notifyLocationsUpdated:locations];
+    [self didUpdateLocations:locations];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    [self notifyLocationManagerError:error];
+    [self didFailWithError:error];
 }
 
 - (void)locationManagerDidPauseLocationUpdates:(CLLocationManager *)manager
 {
-    [self notifyLocationUpdatesPaused];
+    [self didPauseLocationUpdates];
 }
 
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
 {
-    [self notifyLocationUpdatesResumed];
+    [self didResumeLocationUpdates];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -290,99 +291,103 @@ static NSString * const kAuthorizeWhenInUseDescriptionKey = @"NSLocationWhenInUs
 
 
 #pragma mark Location Updates Listeners Selectors
-- (void)notifyLocationsUpdated:(NSArray *)locations
+- (void)didUpdateLocations:(NSArray *)locations
 {
     CLLocation *location = locations.firstObject;
 
-    for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
+    for (SALocationUpdatesListener *listener in self.locationUpdatesListeners)
     {
         NSTimeInterval locationAge = [[NSDate date] timeIntervalSinceDate:location.timestamp];
 
-        if (locationAge <= options.maxAge)
+        if (locationAge <= listener.maxAge)
         {
-            if (!options.bestLocationSoFar || location.horizontalAccuracy <= options.bestLocationSoFar.horizontalAccuracy)
+            if (!listener.bestLocationSoFar || location.horizontalAccuracy <= listener.bestLocationSoFar.horizontalAccuracy)
             {
-                options.bestLocationSoFar = location;
+                listener.bestLocationSoFar = location;
 
-                options.onLocationUpdated(options.bestLocationSoFar);
+                listener.onLocationUpdated(listener.bestLocationSoFar);
 
-                if (location.horizontalAccuracy < options.desiredHorizontalAccuracy)
+                if (location.horizontalAccuracy < listener.desiredHorizontalAccuracy)
                 {
-                    if (!options.continuousUpdates)
+                    if (!listener.continuousUpdates)
                     {
-                        [self.locationUpdatesListeners removeObject:options];
+                        [self stopUpdatingLocationWithListener:listener];
                     }
 
-                    options.onLocationRetrieved(options.bestLocationSoFar);
+                    listener.onLocationRetrieved(listener.bestLocationSoFar);
                 }
             }
         }
 
-        if (--options.retryCount <= 0 && !options.continuousUpdates)
+        if (--listener.retryCount <= 0 && !listener.continuousUpdates)
         {
-            [self.locationUpdatesListeners removeObject:options];
+            [self.locationUpdatesListeners removeObject:listener];
 
-            options.onLocationRetrieved(options.bestLocationSoFar);
+            listener.onLocationRetrieved(listener.bestLocationSoFar);
         }
     }
 }
 
-- (void)notifyLocationsUpdateError:(NSError *)error
+- (void)didFailLocationUpdatesWithError:(NSError *)error
 {
     if (self.locationUpdatesListeners)
     {
-        for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
+        for (SALocationUpdatesListener *listener in self.locationUpdatesListeners)
         {
-            options.onLocationUpdateFailed(error);
+            listener.onLocationUpdateFailed(error);
 
-            [self.locationUpdatesListeners removeObject:options];
+            [self.locationUpdatesListeners removeObject:listener];
         }
 
         [self.locationManager stopUpdatingLocation];
     }
 }
 
-- (void)notifyLocationUpdatesPaused
+- (void)didPauseLocationUpdates
 {
-    for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
+    for (SALocationUpdatesListener *listener in self.locationUpdatesListeners)
     {
-        options.onLocationUpdatesPaused(options.bestLocationSoFar);
+        listener.onLocationUpdatesPaused(listener.bestLocationSoFar);
     }
 }
 
-- (void)notifyLocationUpdatesResumed
+- (void)didResumeLocationUpdates
 {
-    for (SALocationUpdatesListener *options in self.locationUpdatesListeners)
+    for (SALocationUpdatesListener *listener in self.locationUpdatesListeners)
     {
-        options.onLocationUpdatesResumed(options.bestLocationSoFar);
+        listener.onLocationUpdatesResumed(listener.bestLocationSoFar);
     }
 }
 
 
 
 #pragma mark Errors
-- (void)notifyLocationManagerError:(NSError *)error
+- (void)didFailWithError:(NSError *)error
 {
-    [self notifyLocationsUpdateError:error];
+    [self didFailLocationUpdatesWithError:error];
 }
 
 
 
 #pragma mark DEBUG
-- (void)verifyLocationRequestsSetupWithOptions:(SALocationUpdatesListener *)options
+- (void)verifyLocationRequestsSetupWithListener:(SALocationUpdatesListener *)listener
 {
 #if DEBUG
     NSBundle *b               = [NSBundle mainBundle];
-    NSString *authKey         = options.authorizeAlways ? kAuthorizeAlwaysDescriptionKey : kAuthorizeWhenInUseDescriptionKey;
+    NSString *authKey         = listener.authorizeAlways ? kAuthorizeAlwaysDescriptionKey : kAuthorizeWhenInUseDescriptionKey;
     NSString *authDescription = [b objectForInfoDictionaryKey:authKey];
 
-    if (options.authorizeAlways)
+    if (listener.authorizeAlways)
     {
-        NSAssert(authDescription.length, @"Info.plist is missing the required key to allow location authorization all the time.");
+        NSAssert(authDescription.length,
+                 @"Info.plist is missing the required %@ key to allow location authorization all the time.",
+                 kAuthorizeAlwaysDescriptionKey);
     }
     else
     {
-        NSAssert(authDescription.length, @"Info.plist is missing the required key to allow location authorization while the app is active.");
+        NSAssert(authDescription.length,
+                 @"Info.plist is missing the required %@ key to allow location authorization while the app is active.",
+                 kAuthorizeWhenInUseDescriptionKey);
     }
 #endif
 }

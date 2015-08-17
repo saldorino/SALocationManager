@@ -36,7 +36,7 @@
 - (void)startUpdatingLocationWithListener:(SALocationUpdatesListener *)listener;
 
 /**
- *  Use this selector to stop updating location.
+ *  Use this selector to stop updating location for a given listener.
  *
  *  @param listener A listener that was previously used as a parameter on startUpdatingLocationWithListener:
  */

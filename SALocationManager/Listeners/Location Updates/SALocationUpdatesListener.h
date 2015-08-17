@@ -56,7 +56,7 @@ typedef void(^SALocationUpdatesListenerFailureBlock)(NSError *error);
 @property (nonatomic) BOOL failsAuthorizationSilently;
 
 
-#pragma mark Request Blocks
+#pragma mark Callbacks
 /**
  *  Invoked every time a new location is found.
  */
@@ -68,17 +68,22 @@ typedef void(^SALocationUpdatesListenerFailureBlock)(NSError *error);
 @property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationRetrieved;
 
 /**
- *  Invoked when location updates are stopped.
+ *  Invoked when location updates are stopped. 
+    Passed location will be the best available at the time.
+
+    Note: Location updates are automatically stopped when onLocationRetrieved is invoked and listener is set as non continuous
  */
 @property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdatesStopped;
 
 /**
- *  Invoked when location updates are paused.
+ *  Invoked when location updates are paused. 
+    Passed location will be the best available at the time.
  */
 @property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdatesPaused;
 
 /**
- * Invoked when location updates are resumed
+ * Invoked when location updates are resumed. 
+    Passed location will be the best available at the time.
  */
 @property (nonatomic, copy) SALocationUpdatesListenerSuccessBlock onLocationUpdatesResumed;
 
