@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9E2B1EDD1B81974E001C70C2 /* SALocationUpdatesListener.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B1EDC1B81974E001C70C2 /* SALocationUpdatesListener.m */; };
+		9E2B1EE11B81982B001C70C2 /* LocationUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2B1EE01B81982B001C70C2 /* LocationUpdatesViewController.m */; };
 		9E2F460C1B812F1F00EAA573 /* SALocationManagerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2F460B1B812F1F00EAA573 /* SALocationManagerTests.m */; };
 		9E8A23D91B813E3D00913E4E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23CD1B813E3D00913E4E /* AppDelegate.m */; };
 		9E8A23DA1B813E3D00913E4E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23CE1B813E3D00913E4E /* LaunchScreen.xib */; };
@@ -15,7 +16,7 @@
 		9E8A23DC1B813E3D00913E4E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23D21B813E3D00913E4E /* Images.xcassets */; };
 		9E8A23DD1B813E3D00913E4E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9E8A23D31B813E3D00913E4E /* Info.plist */; };
 		9E8A23DE1B813E3D00913E4E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23D41B813E3D00913E4E /* main.m */; };
-		9E8A23E01B813E3D00913E4E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23D81B813E3D00913E4E /* ViewController.m */; };
+		9E8A23E01B813E3D00913E4E /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23D81B813E3D00913E4E /* HomeViewController.m */; };
 		9E8A23E41B813E4800913E4E /* SALocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E8A23E31B813E4800913E4E /* SALocationManager.m */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,8 @@
 /* Begin PBXFileReference section */
 		9E2B1EDB1B81974E001C70C2 /* SALocationUpdatesListener.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationUpdatesListener.h; sourceTree = "<group>"; };
 		9E2B1EDC1B81974E001C70C2 /* SALocationUpdatesListener.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationUpdatesListener.m; sourceTree = "<group>"; };
+		9E2B1EDF1B81982B001C70C2 /* LocationUpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationUpdatesViewController.h; sourceTree = "<group>"; };
+		9E2B1EE01B81982B001C70C2 /* LocationUpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationUpdatesViewController.m; sourceTree = "<group>"; };
 		9E2F45EC1B812F1F00EAA573 /* SALocationManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SALocationManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2F46051B812F1F00EAA573 /* SALocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SALocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9E2F460A1B812F1F00EAA573 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -43,8 +46,8 @@
 		9E8A23D21B813E3D00913E4E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		9E8A23D31B813E3D00913E4E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9E8A23D41B813E3D00913E4E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		9E8A23D71B813E3D00913E4E /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9E8A23D81B813E3D00913E4E /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		9E8A23D71B813E3D00913E4E /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		9E8A23D81B813E3D00913E4E /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
 		9E8A23E21B813E4800913E4E /* SALocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SALocationManager.h; sourceTree = "<group>"; };
 		9E8A23E31B813E4800913E4E /* SALocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SALocationManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,6 +85,17 @@
 				9E2B1EDC1B81974E001C70C2 /* SALocationUpdatesListener.m */,
 			);
 			path = "Location Updates";
+			sourceTree = "<group>";
+		};
+		9E2B1EDE1B81981B001C70C2 /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9E8A23D71B813E3D00913E4E /* HomeViewController.h */,
+				9E8A23D81B813E3D00913E4E /* HomeViewController.m */,
+				9E2B1EDF1B81982B001C70C2 /* LocationUpdatesViewController.h */,
+				9E2B1EE01B81982B001C70C2 /* LocationUpdatesViewController.m */,
+			);
+			name = "View Controllers";
 			sourceTree = "<group>";
 		};
 		9E2F45E31B812F1F00EAA573 = {
@@ -130,8 +144,7 @@
 				9E8A23D21B813E3D00913E4E /* Images.xcassets */,
 				9E8A23D31B813E3D00913E4E /* Info.plist */,
 				9E8A23D41B813E3D00913E4E /* main.m */,
-				9E8A23D71B813E3D00913E4E /* ViewController.h */,
-				9E8A23D81B813E3D00913E4E /* ViewController.m */,
+				9E2B1EDE1B81981B001C70C2 /* View Controllers */,
 			);
 			path = Sample;
 			sourceTree = "<group>";
@@ -249,9 +262,10 @@
 			files = (
 				9E8A23DE1B813E3D00913E4E /* main.m in Sources */,
 				9E2B1EDD1B81974E001C70C2 /* SALocationUpdatesListener.m in Sources */,
-				9E8A23E01B813E3D00913E4E /* ViewController.m in Sources */,
+				9E8A23E01B813E3D00913E4E /* HomeViewController.m in Sources */,
 				9E8A23D91B813E3D00913E4E /* AppDelegate.m in Sources */,
 				9E8A23E41B813E4800913E4E /* SALocationManager.m in Sources */,
+				9E2B1EE11B81982B001C70C2 /* LocationUpdatesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
