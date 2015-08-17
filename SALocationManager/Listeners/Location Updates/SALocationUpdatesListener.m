@@ -2,7 +2,7 @@
 //  SALocationManager.m
 //  SALocationManager
 //
-//  Created by Sebastian Aldorino on 9/15/14.
+//  Created by Sebastian Aldorino on 2015-08-16
 //  Copyright (c) 2014 Sebastian Aldorino. All rights reserved.
 //
 
