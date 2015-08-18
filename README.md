@@ -3,10 +3,9 @@ SALocationManager was created as plug and play module to handle user location up
 
 ## Features
 - Supports multiple location updates listeners.
-- Location filtering by maximum age and horizontal accuracy.
+- Filtering by maximum age and horizontal accuracy.
 - Supports continuous location updates and listeners with maximum retry count.
-- Handles authorization status automatically and presents feedback to the user when appropriate (feedback can be turned off through a BOOL property in locations update listener)
-
+- Handles authorization status automatically and presents feedback to the user when appropriate unless disabled
 
 ## Planned upgrades
 - Significant location change updates.
